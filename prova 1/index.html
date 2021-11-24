@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finciamento de carros</title>
+</head>
+<body>
+    <h1>financiar carros</h1>
+    <form action="salvar.php" method="get" onsubmit="return calcular()">
+        <label for="model">Modelo do carro</label>
+        <input type="text" name="model" id="model"><br>
+        
+        <br><label for="valor">Valor do produto</label>
+        <input type="number" name="valor" id="valor" min="1"><br>
+        
+        <br><label for="parc">Em quantas parcelas você quer financiar?</label>
+        <input type="number" name="parc" id="parc" min="1" max="36"><br>
+
+        <input type="submit" value="calcular" id="butão">
+        <p id="result"></p>
+
+        <script>
+            let result= document.getElementById("result")
+            function calcular() {
+                let model = document.getElementById("model").value
+                let valor = Number(document.getElementById("valor").value)
+                let parc = Number(document.getElementById("parc").value)
+
+                let porc = 0
+                let total = 0
+                
+                if (parc <= 4) {
+                    let juros = valor * 0
+                    total = valor + juros
+                }
+                else if (parc <= 12) {
+                    porc = 25
+                    let juros = valor * 0.25
+                    total = valor + juros
+                }
+                else if (parc <= 24) {
+                    porc = 60
+                    let juros = valor * 0.60
+                    total = valor + juros
+                }
+                else if (parc <= 36) {
+                    porc = 80
+                    let juros = valor * 0.80
+                    total = valor + juros
+                }
+
+                result.innerHTML = `O preço do seu <strong>${model}</strong> é <strong>R$${valor.toFixed(2)}</strong> com <strong>${porc}%</strong> de juros vai ficar <strong>R$${total.toFixed(2)}</strong> e cada parcela ficará <strong>R$${(total / parc).toFixed(2)}</strong>`
+                
+                return false
+            }
+        </script>
+    </form>
+</body>
+</html>
