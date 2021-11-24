@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processamento de salários</title>
+</head>
+<body>
+    <style>
+        body {
+            background-image: linear-gradient(aqua, rgb(11, 126, 126));
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+           
+        }
+        main {
+            background-color: white;
+            border-radius: 10px;
+            margin-left: 300px;
+            margin-right: 300px;
+            padding: 7px;
+            
+            text-align: center;
+            font-size: 20px;
+        }
+        #button {
+            font-size: 20px;
+        }
+    </style>
+    <main>
+        <h1>Processamento de salário de funcionários</h1>
+        <form action="salvar.php" method="get" onsubmit="return processar()">
+        <label for="q">Digite quantos funcionários serão cadastrados</label><br><br>
+        <input type="number" name="q" id="q" min="1" max="1000000"><br><br>
+        <input type="submit" value="Clique" id="button">
+        <p id="result">==O resultado vai aparecer aqui==</p>
+        </form>
+    </main>
+    <script>
+        let result = document.getElementById("result")
+        function processar() {
+            let q = Number(document.getElementById("q").value)
+            let c = 1
+            let s = 0
+            let tot = 0
+            let med = 0
+            let mai = 0
+            let men = 0
+            
+            while (c <= q) {
+                s = Number(prompt(`Digite o salário do ${c}º funcionário`))
+                
+                tot += s
+                med = tot / q
+                
+                if (c == 1) {
+                    mai = s
+                    men = s
+                }
+                if (s > mai) {
+                    mai = s
+                }
+                if (s < men) {
+                    men = s
+                }
+                c++
+            }
+            
+            
+            result.innerHTML = `A empresa gastará por mês um total de R$${tot}<br>A média salarial é R$${med}<br>O maior salário pago foi R${mai}<br>E o menor salário pago foi R$${men}`
+            
+            return false
+        }
+    </script>
+</body>
+</html>
